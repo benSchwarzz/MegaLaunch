@@ -31,18 +31,15 @@ class User:
 
         ### y direction
         if not powered:
-            self.dy += 0.5
+            self.dy += 0.2
             
-            if self.y < 300:
-                self.y = 300
-
             if self.dy < 0:
-                if self.y > 300:
+                if self.y > 400:
                     self.y += self.dy
+
             elif self.dy > 0:
-                if self.y > HEIGHT-self.height:
-                    self.y += self.dy
-            self.y += self.dy
+                self.y += self.dy
+        
 
         ###
 
@@ -124,11 +121,8 @@ def main():
         new_time: int = pg.time.get_ticks()
         if (new_time - last_time) > random.randint(1000, 4000):
             last_time = pg.time.get_ticks()
-
-            print("created")
-
-            fuel = Fuel(random.randint(0, WIDTH-25), -20)
             
+            fuel = Fuel(random.randint(0, WIDTH-25), -20)
             fuels.append(fuel)
 
         for f in fuels:
