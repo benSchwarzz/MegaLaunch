@@ -1,10 +1,12 @@
 import pygame as pg
 import random, math
+import pygame.freetype
 pg.init()
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 SKY_BLUE = (135, 206, 235)
+font = pygame.freetype.Font(None, 20)
 
 WIDTH, HEIGHT = 500, 700
 screen = pg.display.set_mode((WIDTH, HEIGHT))
@@ -117,6 +119,7 @@ def main():
     initial_time = pg.time.get_ticks()
     elapsed_time: int = 0
     fuel_range: list = [400, 1000]
+    altitude = 0
 
 
     fuels = []
@@ -124,6 +127,7 @@ def main():
 
     run = True
     while run:
+        
         elapsed_time = pg.time.get_ticks() - initial_time
         screen.fill(SKY_BLUE)
 
@@ -182,6 +186,9 @@ def main():
 
 
         player.draw(pg.K_a, pg.K_d)
+
+        altitude += int((-1*player.dy*elapsed_time)/1000)
+        font.render_to(screen, (10, 10), f"Altitude: {altitude}m", BLACK)
 
         for event in pg.event.get():
             if event.type == pg.QUIT:
