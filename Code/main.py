@@ -58,7 +58,7 @@ def main():
             
             if c.y > HEIGHT+2:
                 clouds.remove(c)
-            c.draw()
+            c.draw(screen)
 
         new_time: int = pg.time.get_ticks()
         if (new_time - last_time) > random.randint(fuel_range[0], fuel_range[1]):
@@ -75,7 +75,7 @@ def main():
             
             if f.y > HEIGHT+2:
                 fuels.remove(f)
-            f.draw()
+            f.draw(screen)
 
         try:
             for f in fuels:

@@ -5,7 +5,6 @@ WHITE = (255, 255, 255)
 SKY_BLUE = (135, 206, 235)
 
 WIDTH, HEIGHT = 500, 700
-screen = pg.display.set_mode((WIDTH, HEIGHT))
 
 clock = pg.time.Clock()
 

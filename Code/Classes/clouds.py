@@ -5,7 +5,6 @@ WHITE = (255, 255, 255)
 SKY_BLUE = (135, 206, 235)
 
 WIDTH, HEIGHT = 500, 700
-screen = pg.display.set_mode((WIDTH, HEIGHT))
 
 clock = pg.time.Clock()
 
@@ -19,7 +18,7 @@ class Cloud:
         self.sprite = pg.image.load("Sprites/pixil-frame-0 (8).png")
         
     
-    def draw(self):
+    def draw(self, screen):
         self.box = pg.Rect(self.x, self.y, self.width, self.height)
         screen.blit(self.sprite, self.box)
 
