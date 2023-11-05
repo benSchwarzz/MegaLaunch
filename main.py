@@ -20,8 +20,8 @@ class User:
         self.dy = dy
         self.dx = dx
         self.gravity = gravity
-        self.sprite1 = pg.image.load("SpaceShip Adventure/images/pixil-frame-0 (6).png")
-        self.sprite2 = pg.image.load("SpaceShip Adventure/images/pixil-frame-0 (7).png")
+        self.sprite1 = pg.image.load("pixil-frame-0 (6).png")
+        self.sprite2 = pg.image.load("pixil-frame-0 (7).png")
         self.current_sprite = self.sprite2
         self.powered = False
 
@@ -80,7 +80,7 @@ class Cloud:
         self.width = 100
         self.height = 50
         self.dy = dy
-        self.sprite = pg.image.load("SpaceShip Adventure/images/pixil-frame-0 (8).png")
+        self.sprite = pg.image.load("pixil-frame-0 (8).png")
         
     
     def draw(self):
@@ -98,7 +98,7 @@ class Fuel:
         self.x = x
         self.y = -42
         self.dy = dy
-        self.image = pg.image.load("SpaceShip Adventure/images/pixil-frame-0 (9).png")
+        self.image = pg.image.load("pixil-frame-0 (9).png")
         self.sprite = pg.transform.scale(self.image, (25, 41))
     
     def draw(self):
@@ -110,7 +110,7 @@ class Fuel:
 
 
 def main():
-    player = User(220, 300, 60, 100, -10, 0, 0.1)
+    player = User(220, 300, 60, 100, -10, 0, 0.07)
     last_time: int = pg.time.get_ticks()
     last_time1: int = pg.time.get_ticks()
     sprite_time: int = 0
@@ -132,9 +132,6 @@ def main():
 
         if elapsed_time > 10000:
             pass
-
-        if initial_time < 60000:
-            player.gravity = 0.05
 
         new_time1: int = pg.time.get_ticks()
         if (new_time1 - last_time1) > random.randint(400, 1200):
