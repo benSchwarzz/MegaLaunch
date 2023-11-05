@@ -1,6 +1,10 @@
 import pygame as pg
 import random, math
 import pygame.freetype
+from Classes.user import User
+from Classes.fuels import Fuel
+from Classes.clouds import Cloud
+
 pg.init()
 
 BLACK = (0, 0, 0)
@@ -12,104 +16,6 @@ WIDTH, HEIGHT = 500, 700
 screen = pg.display.set_mode((WIDTH, HEIGHT))
 
 clock = pg.time.Clock()
-
-class User:
-    def __init__(self, x, y, width, height, dy, dx, gravity):
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.dy = dy
-        self.dx = dx
-        self.gravity = gravity
-        self.sprite1 = pg.image.load("pixil-frame-0 (6).png")
-        self.sprite2 = pg.image.load("pixil-frame-0 (7).png")
-        self.current_sprite = self.sprite2
-        self.powered = False
-
-    def draw(self, left, right):
-        self.hit_box = pg.Rect(self.x, self.y, self.width, self.height)
-
-        if self.powered == True:
-            self.current_sprite = self.sprite1
-        else: 
-            self.current_sprite = self.sprite2
-        
-        screen.blit(self.current_sprite, self.hit_box)
-        keys = pg.key.get_pressed()
-
-        ### y direction
-        self.dy += self.gravity
-            
-        if self.dy < 0:
-            if self.y > 400:
-                self.y += self.dy
-
-        elif self.dy > 0:
-            self.y += self.dy
-        ###
-
-        ### x direction
-        if keys[left]:
-            if self.dx > -10:
-                self.dx -= 0.5
-            self.x += self.dx
-        
-        if keys[right]:
-            if self.dx < 10:
-                self.dx += 0.5
-            self.x += self.dx
-        
-        if not keys[left] and not keys[right]:
-            if self.dx < 0:
-                self.dx += 0.5
-            if self.dx > 0:
-                self.dx -= 0.5
-            self.x += self.dx
-
-        if self.x < -60:
-            self.x = WIDTH
-        elif self.x > WIDTH:
-            self.x = -60
-        ###
-            
-
-    
-class Cloud:
-    def __init__(self, x, dy):
-        self.x = x
-        self.y = -50
-        self.width = 100
-        self.height = 50
-        self.dy = dy
-        self.sprite = pg.image.load("pixil-frame-0 (8).png")
-        
-    
-    def draw(self):
-        self.box = pg.Rect(self.x, self.y, self.width, self.height)
-        screen.blit(self.sprite, self.box)
-
-        self.y += self.dy
-
-        
-
-class Fuel:
-    def __init__(self, x, dy):
-        self.width = 25
-        self.height = 41
-        self.x = x
-        self.y = -42
-        self.dy = dy
-        self.image = pg.image.load("pixil-frame-0 (9).png")
-        self.sprite = pg.transform.scale(self.image, (25, 41))
-    
-    def draw(self):
-        self.hit_box = pg.Rect(self.x, self.y, self.width, self.height)
-        screen.blit(self.sprite, self.hit_box)
-
-        self.y += self.dy
-
-
 
 def main():
     player = User(220, 300, 60, 100, -10, 0, 0.07)
@@ -185,7 +91,7 @@ def main():
             player.powered = False
 
 
-        player.draw(pg.K_a, pg.K_d)
+        player.draw(screen, pg.K_a, pg.K_d)
 
         altitude += int((-1*player.dy*elapsed_time)/1000)
         font.render_to(screen, (10, 10), f"Altitude: {altitude}m", BLACK)
