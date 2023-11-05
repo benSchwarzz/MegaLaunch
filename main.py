@@ -11,8 +11,6 @@ screen = pg.display.set_mode((WIDTH, HEIGHT))
 
 clock = pg.time.Clock()
 
-test
-
 class User:
     def __init__(self, x, y, width, height, dy, dx, gravity):
         self.x = x
