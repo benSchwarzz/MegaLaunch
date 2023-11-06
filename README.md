@@ -1,3 +1,3 @@
 # MegaLaunch
 
-This a Mega Jump style game using the pygame library
+This a Megajump style game using the pygame library
