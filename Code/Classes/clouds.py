@@ -15,7 +15,7 @@ class Cloud:
         self.width = 100
         self.height = 50
         self.dy = dy
-        self.sprite = pg.image.load("Sprites/pixil-frame-0 (8).png")
+        self.sprite = pg.image.load("Sprites/cloud.png")
         
     
     def draw(self, screen):

@@ -17,8 +17,8 @@ class User:
         self.dy = dy
         self.dx = dx
         self.gravity = gravity
-        self.sprite1 = pg.image.load("Sprites/pixil-frame-0 (6).png")
-        self.sprite2 = pg.image.load("Sprites/pixil-frame-0 (7).png")
+        self.sprite1 = pg.image.load("Sprites/powered_rocket.png")
+        self.sprite2 = pg.image.load("Sprites/rocket_off.png")
         self.current_sprite = self.sprite2
         self.powered = False
 
