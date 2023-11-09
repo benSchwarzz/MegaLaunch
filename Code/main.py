@@ -93,13 +93,7 @@ def main():
 
         if (elapsed_time - sprite_time) > 1000:
             player.powered = False
-
-
-
-
-
-
-
+            
         new_time2: int = pg.time.get_ticks()
         if (new_time2 - last_time2) > random.randint(10000, 20000):
             last_time2 = pg.time.get_ticks()
