@@ -47,6 +47,8 @@ def main():
         if elapsed_time > 10000:
             pass
 
+    ########################################################################## Clouds Animation
+
         new_time1: int = pg.time.get_ticks()
         if (new_time1 - last_time1) > random.randint(400, 1200):
             last_time1 = pg.time.get_ticks()
@@ -64,6 +66,7 @@ def main():
                 clouds.remove(c)
             c.draw(screen)
 
+########################################################################## Fuel Drops
         new_time: int = pg.time.get_ticks()
         if (new_time - last_time) > random.randint(fuel_range[0], fuel_range[1]):
             last_time = pg.time.get_ticks()
@@ -94,6 +97,8 @@ def main():
         if (elapsed_time - sprite_time) > 1000:
             player.powered = False
             
+########################################################################## Powerups
+        
         new_time2: int = pg.time.get_ticks()
         if (new_time2 - last_time2) > random.randint(10000, 20000):
             last_time2 = pg.time.get_ticks()
@@ -118,7 +123,7 @@ def main():
                 sprite_time = elapsed_time
                 powerups.remove(p)
 
-
+##########################################################################
         player.draw(screen, pg.K_a, pg.K_d)
 
         altitude += int((-1*player.dy*elapsed_time)/1000)
@@ -135,4 +140,3 @@ def main():
 
 
 main()
-
