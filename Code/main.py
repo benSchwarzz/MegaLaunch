@@ -5,6 +5,7 @@ from Classes.user import User
 from Classes.fuels import Fuel
 from Classes.clouds import Cloud
 from Classes.powerups import Speed_boost
+from Classes.powerups import Oil_boost
 
 
 pg.init()
@@ -26,23 +27,39 @@ def main():
     last_time = pg.time.get_ticks()
     last_time1 = pg.time.get_ticks()
     last_time2 = pg.time.get_ticks()
+    last_time3 = pg.time.get_ticks()
     initial_time = pg.time.get_ticks()
     elapsed_time: int = 0
-    fuel_range: list = [400, 1000]
+    fuel_range: tuple = (400, 1000)
     altitude = 0
+    oil_boost_time = 0
+    oil_boost_time_check = 0
 
     fuels = []
     clouds = []
     powerups = []
 
-    run = True
+    
+    run = False
+
+    while not run:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+
+        font.render_to(screen, (10, 10), "Press space to start", WHITE)
+        key = pg.key.get_pressed()
+
+        if key[pg.K_SPACE]:
+            run = True
+
     while run:
         
         elapsed_time = pg.time.get_ticks() - initial_time
         screen.fill(SKY_BLUE)
 
         if player.y > HEIGHT + 20:
-            run = False
+            font.render_to(screen, (WIDTH//2-40, HEIGHT//2-10), "You stink", BLACK)
 
         if elapsed_time > 10000:
             pass
@@ -96,14 +113,19 @@ def main():
 
         if (elapsed_time - sprite_time) > 1000:
             player.powered = False
+
             
 ########################################################################## Powerups
-        
+
         new_time2: int = pg.time.get_ticks()
-        if (new_time2 - last_time2) > random.randint(10000, 20000):
+        if (new_time2 - last_time2) > random.randint(7000, 10000):
             last_time2 = pg.time.get_ticks()
+
+            lst = [Oil_boost, Speed_boost]
+
+            choice = lst[random.randint(0, 1)]
             
-            powerup = Speed_boost(random.randint(0, WIDTH-25), -20)
+            powerup = choice(random.randint(0, WIDTH-25), 64, 61, -20)
             powerups.append(powerup)
 
         for p in powerups:
@@ -115,18 +137,31 @@ def main():
             if p.y > HEIGHT+2:
                 powerups.remove(p)
             p.draw(screen)
+            
 
         for p in powerups:
-            if p.hit_box.colliderect(player.hit_box):
+            if p.hit_box.colliderect(player.hit_box) and p.type == "speed_boost":
                 player.dy -= 20
                 player.powered = True
                 sprite_time = elapsed_time
                 powerups.remove(p)
+            
+            if p.hit_box.colliderect(player.hit_box) and p.type == "oil_boost":
+                fuel_range = (10, 100)
+                oil_boost_time = pg.time.get_ticks()
+                powerups.remove(p)
+        
+        oil_boost_time_check = pg.time.get_ticks()
+        if abs(oil_boost_time - oil_boost_time_check) > 700:
+            fuel_range = (400, 1000)
+
+        
 
 ##########################################################################
         player.draw(screen, pg.K_a, pg.K_d)
 
-        altitude += int((-1*player.dy*elapsed_time)/1000)
+        if player.dy < 0:
+            altitude += int((-1*player.dy*elapsed_time)/1000)
         font.render_to(screen, (10, 10), f"Altitude: {altitude}m", BLACK)
 
         for event in pg.event.get():

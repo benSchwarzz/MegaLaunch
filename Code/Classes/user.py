@@ -37,7 +37,7 @@ class User:
         self.dy += self.gravity
             
         if self.dy < 0:
-            if self.y > 400:
+            if self.y > 550:
                 self.y += self.dy
 
         elif self.dy > 0:
